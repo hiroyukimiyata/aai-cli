@@ -1,9 +1,43 @@
+// node ./scripts/aai-cli.js d2b
+const { program } = require('commander');
+const OpenAI = require('openai');
+const fs = require('fs');
+const axios = require("axios");
+
+program
+  .option('d2b')
+  // .option('--cssText <cssText>')
+  .option('--blockName <blockName>');
+
+program.parse();
+const options = program.opts();
+let cssText = '';
+const blockPath = `./blocks/test`;
+const defaultJsContent = `export default function decorate(block) {
+}`;
+
+/* Fetch Issue */
+const fetchGithubIssue = async (issueUrl) => {
+  try {
+    // Call using axios
+    const response = await axios.get(issueUrl);
+
+    // Get the issue description from the body
+    const issue = response.data.body;
+    return issue;
+  } catch (error) {
+    console.error(
+      "Failed at fetching Github Issue. Please check the issue URL again..."
+    );
+    return "";
+  }
+};
+
 const generatePromptFromIssue = (issueText) => {
   // Pick up the specific values based on fixed strings
 
   // Put into Prompt Template
-  const promptText = `You are an extraordinary Principal AEM Developer. Please generate the css based on user's #request . Do not comment any words except css code. Please refer to the #knowledge for the specification about block css. Please generate the full css and make sure it works. 
-
+  const promptText = `
   #request
   AEM Cloud Services Edge Delivery Services leverages blocks. 
   Could you please generate css based on #Designspecs ?
@@ -25,10 +59,50 @@ const generatePromptFromIssue = (issueText) => {
   return promptText;
 };
 
-module.exports = {
-  generatePromptFromIssue,
-};
+const issue = fetchGithubIssue("https://api.github.com/repos/hiroyukimiyata/design-spec/issues/3");
+const prompt = generatePromptFromIssue(issue);
+// console.log(prompt);
 
-// Sample Texts
-// const sampleIssueText = "##Design spec\r\n###BlockName\r\nCard\r\n\r\n###Interactions\r\nHover, highlight in yellow";
-// console.log('generatePromptFromIssue', generatePromptFromIssue(sampleIssueText));
+/* Issue to Prompt */
+
+/* Call GPT API */
+const openai = new OpenAI();
+
+async function main() {
+  const completion = await openai.chat.completions.create({
+    messages: [
+      {"role": "system", "content": "You are an extraordinary Principal AEM Developer. Please generate the css based on user's #request . Do not comment any words except css code. Please refer to the #knowledge for the specification about block css. Please generate the full css and make sure it works. "}, 
+      {"role": "user", "content": prompt}
+    ],
+    model: "gpt-4o",
+  });
+  fs.promises
+  .mkdir(blockPath, { recursive: true })
+  .then(() => {
+    fs.writeFile(`${blockPath}/test.js`,
+      defaultJsContent,
+      err => {
+        if (err) {
+          console.error(err);
+        } else {
+          // file written successfully
+        }
+    });
+    fs.writeFile(`${blockPath}/test.css`,
+      completion.choices[0].message.content,
+      err => {
+        if (err) {
+          console.error(err);
+        } else {
+          // file written successfully
+        }
+    });
+  });
+}
+main();
+/* Save to CSS */
+
+
+
+
+
