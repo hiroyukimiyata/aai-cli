@@ -11,4 +11,4 @@ ARG1=$1
 
 # Execute the Node.js script with the arguments
 # Please write a cd command to move to the 
-node aai-cli.js "$ARG1"
+node ./scripts/aai-cli.cjs "$ARG1"
