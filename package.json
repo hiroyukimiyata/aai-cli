@@ -5,8 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "npm run",
-    "css": "node ./test/css-test.js"
+    "css": "node ./test/css-test.js",
+    "block-export": "node ./scripts/block-export.js",
+    "helloworld": "node ./scripts/helloworld.js --variable World",
+    "test": "npm run"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,7 @@
   "homepage": "https://github.com/hiroyukimiyata/aai-cli#readme",
   "dependencies": {
     "commander": "^12.1.0",
-    "openai": "^4.52.1"
+    "openai": "^4.52.1",
+    "fs": "^0.0.1-security"
   }
 }
