@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "fetch-issue": "node issue-fetch.js",
+    "issue-to-prompt": "node issue-to-prompt.js",
     "css": "node ./test/css-test.js",
     "block-export": "node ./scripts/block-export.cjs --cssText $npm_config_cssText --blockName Card",
     "helloworld": "node ./scripts/helloworld.js --variable World",
