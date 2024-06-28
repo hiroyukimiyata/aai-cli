@@ -1,3 +1,4 @@
+// node ./scripts/helloworld.js --variable "World"
 const { program } = require('commander');
 
 program
