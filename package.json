@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "npm run",
-    "fetch-issue": "node issue-fetch.js"
+    "fetch-issue": "node issue-fetch.js",
+    "css": "node ./test/css-test.js",
+    "block-export": "node ./scripts/block-export.js",
+    "helloworld": "node ./scripts/helloworld.js --variable World",
+    "test": "npm run"
   },
   "repository": {
     "type": "git",
@@ -22,6 +26,8 @@
   "homepage": "https://github.com/hiroyukimiyata/aai-cli#readme",
   "dependencies": {
     "axios": "^1.7.2",
-    "commander": "^12.1.0"
+    "commander": "^12.1.0",
+    "openai": "^4.52.1",
+    "fs": "^0.0.1-security"
   }
 }
