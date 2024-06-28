@@ -7,7 +7,7 @@
   "scripts": {
     "fetch-issue": "node issue-fetch.js",
     "css": "node ./test/css-test.js",
-    "block-export": "node ./scripts/block-export.cjs --cssText $npm_config_cssText} --blockName card",
+    "block-export": "node ./scripts/block-export.cjs --cssText $npm_config_cssText --blockName card",
     "helloworld": "node ./scripts/helloworld.js --variable World",
     "test": "npm run"
   },
