@@ -12,7 +12,7 @@ program
 program.parse();
 const options = program.opts();
 let cssText = '';
-const blockPath = `./blocks/test`;
+const blockPath = `./blocks/Card`;
 const defaultJsContent = `export default function decorate(block) {
 }`;
 
@@ -79,7 +79,7 @@ async function main() {
   fs.promises
   .mkdir(blockPath, { recursive: true })
   .then(() => {
-    fs.writeFile(`${blockPath}/test.js`,
+    fs.writeFile(`${blockPath}/Card.js`,
       defaultJsContent,
       err => {
         if (err) {
@@ -90,8 +90,7 @@ async function main() {
     });
     // Clean css
     const cleanedCss = completion.choices[0].message.content.replace("```css", "").replace("```", "");
-
-    fs.writeFile(`${blockPath}/test.css`,
+    fs.writeFile(`${blockPath}/Card.css`,
       cleanedCss,
       err => {
         if (err) {
