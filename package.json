@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
+    "css": "node ./test/css-test.js",
     "block-export": "node ./scripts/block-export.js",
     "helloworld": "node ./scripts/helloworld.js --variable World",
     "test": "npm run"
@@ -23,6 +25,7 @@
   "homepage": "https://github.com/hiroyukimiyata/aai-cli#readme",
   "dependencies": {
     "commander": "^12.1.0",
+    "openai": "^4.52.1",
     "fs": "^0.0.1-security"
   }
 }
