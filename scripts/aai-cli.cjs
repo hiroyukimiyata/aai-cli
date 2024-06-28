@@ -88,8 +88,10 @@ async function main() {
           // file written successfully
         }
     });
+    // Clean css
+    const cleanedCss = completion.choices[0].message.content.replace("```css", "").replace("```", "");
     fs.writeFile(`${blockPath}/Card.css`,
-      completion.choices[0].message.content,
+      cleanedCss,
       err => {
         if (err) {
           console.error(err);
